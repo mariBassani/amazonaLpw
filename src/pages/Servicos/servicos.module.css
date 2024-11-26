@@ -1,0 +1,7 @@
+.usuarias{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    color: rgb(69, 67, 214);
+    font-weight: bold;
+}

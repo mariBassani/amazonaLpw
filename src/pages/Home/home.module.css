@@ -1,0 +1,43 @@
+.superiorHome {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 3rem 3rem;
+  align-items: center;
+  gap: 5vh;
+}
+
+.textoPerfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.textoPerfil h1 {
+  color: black;
+  font-size: 24px;
+}
+
+.post img {
+  width: 40vh;
+  height: 40vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+.publis {
+  margin: 1vw 17vw;
+  display: flex;
+  gap: 1vw;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  list-style-type: none;
+}
+
+.perfil {
+  width: 10vw;
+  height: 10vw;
+  border-radius: 15rem;
+}

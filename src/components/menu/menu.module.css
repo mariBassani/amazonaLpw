@@ -1,0 +1,27 @@
+.cabecalho{
+    width: 100%;
+  }
+
+.navegacao{
+    height: 20vh;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    padding: 0rem 5rem;
+}
+
+.links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
+    gap: 3rem;
+}
+
+.navegacao img{
+    height: 7vw;
+    width: 7vw;
+    padding: 1rem;
+  }
