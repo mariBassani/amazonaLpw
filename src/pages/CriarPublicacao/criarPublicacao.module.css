@@ -1,0 +1,22 @@
+.erro{
+    margin: 0rem 0rem 0.3rem;
+    color: red;
+}
+
+.label{
+    margin-top: 1rem;
+}
+
+.input{
+    border-radius: 7px;
+    border: none;
+    background-color: rgb(239, 238, 240);
+    padding: 0.5rem;
+    width: 20rem;
+    margin-top: 0.5rem;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+}

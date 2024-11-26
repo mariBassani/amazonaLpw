@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import style from "./criarPublicacao.module.css"
 import "../../App.css"
 
 export default function CriarPubli(){
@@ -31,7 +32,7 @@ export default function CriarPubli(){
                     metchod: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        url: link || "Novo Post",
+                        url: url || "Novo Post",
                         completed: false,
                     }),
                 }
@@ -47,19 +48,23 @@ export default function CriarPubli(){
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors }, reset
     } = useForm();
     
     const onSubmit = (data) => {
         console.log(data);
+        addImg(data.url)
+        setMsg("Publicado com sucesso!")
+        reset();
     };
 
     return (  //HOOK FORM AQUI!!
         <>
         <h1>Crie uma nova publicação!</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className={ style.form } onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="url">URL: </label>
         <input 
+            className={ style.input }
             {...register("url", {
                 required:"O url é obrigatório!",
                 pattern: {
@@ -73,16 +78,15 @@ export default function CriarPubli(){
             placeholder="Digite o url da imagem"
             
         />
-        {console.log(errors)}
-        {errors.url && <p style={{ color: "red" }}>{errors.url.message}</p>}
+        {errors.url && <p className={ style.erro }> {errors.url.message}</p>}
         
 
-        <label htmlFor="desc">Descrição: </label>
-        <input type="text" id="desc" placeholder="Adicione uma breve descrição da imagem"/>
-
+        <label className={ style.label } htmlFor="desc">Descrição: </label>
+        <input className={ style.input } {...register("desc", { required:"A descrição é obrigatória!"})} type="text" id="desc" placeholder="Adicione uma breve descrição da imagem"/>
+        {errors.desc && <p className={ style.erro }> {errors.desc.message}</p>}
         <div>
             <p>{msg}</p>
-            <button type="submit" onClick={ ()=>{setMsg("Publicado com sucesso!"); addImg}}>
+            <button type="submit">
                 Publicar
             </button>
         </div>
