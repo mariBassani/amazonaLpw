@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import imgPerfil from './perfil.png'
 import img1 from './imagens/img1.jpg'
 import img2 from './imagens/img2.jpg'
@@ -8,7 +10,25 @@ import img6 from './imagens/img6.jpg'
 import img7 from './imagens/img7.png'
 import style from './home.module.css'
 
-function Home(props){
+export default function Home(props){
+    const [galeria, setGaleria] = useState([]);
+    const [status, setStatus] = useState("Carregando publicações...");
+
+    const obterURLs = async () => {
+        try{
+            const URLs = await fetch("");
+            const URLsJson = await URLs.json();
+            setGaleria(URLsJson);
+            setStatus(" ");
+            console.log("carregamento concluído.");
+        } catch (error) {
+            setStatus("Erro ao carregar dados!!");
+            console.error(error);
+        }
+    };
+
+    useEffect(() => { obterURLs(); }, galeria);
+
     return(
         <>
         <div className={ style.superiorHome }>
@@ -18,17 +38,14 @@ function Home(props){
                 <p style={{fontFamily: props.txt}}>Faço doces sob encomenda. Peça já o seu! | Telefone: (11)98765-4321</p>
             </div>
         </div>
-        <ul className = { style.publis }>
-            <li className={ style.post }><img src={img1}/></li>
-            <li className={ style.post }><img src={img2}/></li>
-            <li className={ style.post }><img src={img3}/></li>
-            <li className={ style.post }><img src={img4}/></li>
-            <li className={ style.post }><img src={img5}/></li>
-            <li className={ style.post }><img src={img6}/></li>
-            <li className={ style.post }><img src={img7}/></li>
+        <h2>{status}</h2>
+        <ul className={ style.publis }>
+            {galeria.map((imagem)=> (
+                <li className={ style.post } key ={objeto.id}>
+                    <img src={imagem.url} alt={imagem.desc} />
+                </li>
+            ))}
         </ul>
         </>
     )
 }
-
-export default Home;
