@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "../../App.css"
-import Publicar from "./publicar";
 
 export default function CriarPubli(){
     const [imagens, setImagens] = useState([]);
     const [link, setLink] = useState("");
+    const [msg, setMsg] = useState("");
 
     useEffect(() => {
         const fetchImagens = async () => {
@@ -46,8 +46,12 @@ export default function CriarPubli(){
         <>
         <h1>Crie uma nova publicação!</h1>
         <input type="text" value={link} onChange={(e) => setLink(e.target.value)} placeholder="Nova publicacao"/>
-        <button onClick={addImg}>Publicar</button>
-        <Publicar />
+        <div>
+            <p>{msg}</p>
+            <button onClick={ ()=>{setMsg("Publicado com sucesso!"); addImg}}>
+                Publicar
+            </button>
+        </div>
         </>
     );
 }
