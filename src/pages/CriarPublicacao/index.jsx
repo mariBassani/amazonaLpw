@@ -6,6 +6,7 @@ export default function CriarPubli(){
     const [imagens, setImagens] = useState([]);
     const [link, setLink] = useState("");
     const [msg, setMsg] = useState("");
+    const [sentOk, setSentOk] = useState(false);
 
     useEffect(() => {
         const fetchImagens = async () => {
@@ -57,23 +58,26 @@ export default function CriarPubli(){
         <>
         <h1>Crie uma nova publicação!</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-        <label for="url">URL: </label>
+        <label htmlFor="url">URL: </label>
         <input 
             {...register("url", {
-                required:"O url é obrgatório!",
+                required:"O url é obrigatório!",
                 pattern: {
-                    value: '^https://.*\.(jpeg|jpg|png|webp)$',
+                    value: /^https?:\/\/.*\.(jpeg|jpg|png|webp)$/i,
                     message: "Formato de URL inválido",},})
             } 
             type="text" 
             id="url"
-            value={link} 
-            onChange={(e) => setLink(e.target.value)} 
+            // value={link} 
+            // onChange={(e) => setLink(e.target.value)} 
             placeholder="Digite o url da imagem"
+            
         />
+        {console.log(errors)}
         {errors.url && <p style={{ color: "red" }}>{errors.url.message}</p>}
+        
 
-        <label for="desc">Descrição: </label>
+        <label htmlFor="desc">Descrição: </label>
         <input type="text" id="desc" placeholder="Adicione uma breve descrição da imagem"/>
 
         <div>
