@@ -25,13 +25,22 @@ export default function Home(props){
 
     const deletePost = async (id) => {
         try {
-          await fetch(`http://localhost:8080/publicacoes/${id}`, {
-            method: "DELETE",
-          });
-          setGaleria((prevGaleria) => prevGaleria.filter((imagem) => imagem.id !== id));
-        } catch (error) {
-          console.error("Erro ao publicação da publicação:", error);
-        }
+            console.log("Excluindo a publicação com id:", id);
+
+            // Chama a API para excluir a publicação
+            const response = await fetch(`http://localhost:8080/publicacoes/${id}`, {
+              method: "DELETE",
+            });
+      
+            if (response.ok) {
+              // Atualiza a galeria removendo o item com o id especificado
+              setGaleria((prevGaleria) => prevGaleria.filter((imagem) => imagem.id !== id));
+            } else {
+              console.error("Falha ao excluir a publicação.");
+            }
+          } catch (error) {
+            console.error("Erro ao excluir a publicação:", error);
+          } 
       };
 
     useEffect(() => { obterURLs(); }, []);
