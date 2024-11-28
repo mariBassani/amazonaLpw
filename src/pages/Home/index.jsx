@@ -24,24 +24,23 @@ export default function Home(props){
     };
 
     const deletePost = async (id) => {
-        try {
-            console.log("Excluindo a publicação com id:", id);
-
-            const response = await fetch(`http://localhost:8080/publicacoes/${id}`, {
+      try {
+          const response = await fetch(`http://localhost:8080/publicacoes/${id}`, {
               method: "DELETE",
-            });
-      
-            if (response.ok) {
-              setGaleria((prevGaleria) => prevGaleria.filter((imagem) => imagem.id !== id));
-            } else {
-              console.error("Falha ao excluir a publicação.");
-            }
-          } catch (error) {
-            console.error("Erro ao excluir a publicação:", error);
-          } 
-      };
+          });
 
-    useEffect(() => { obterURLs(); }, []);
+          if (response.ok) {
+              setGaleria((prevGaleria) => prevGaleria.filter((publicacao) => publicacao.id !== id));
+              console.log("Publicação excluída com sucesso!");
+          } else {
+              console.error("Falha ao excluir a publicação.");
+          }
+      } catch (error) {
+          console.error("Erro ao deletar publicação: ", error);
+      }
+  };
+
+    useEffect(() => { obterURLs(); }, galeria);
 
     return(
         <>
@@ -58,7 +57,7 @@ export default function Home(props){
             {galeria.map((imagem)=> (
                 <li className={ style.post } key ={imagem.id}>
                     <img src={imagem.url} alt={imagem.descricao} />
-                    <button onClick={()=> deletePost(imagem.id)}>Excluir</button>
+                    <button onClick={()=> deletePost(imagem.idPublicacao)}>Excluir</button>
                 </li>
             ))}
         </ul>    
