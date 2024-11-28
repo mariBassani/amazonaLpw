@@ -5,3 +5,55 @@
     color: rgb(69, 67, 214);
     font-weight: bold;
 }
+
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+label{
+    margin-top: 1rem;
+}
+
+.button{
+    background-color: rgb(247, 106, 247);
+}
+
+.send{
+ width: 30;
+}
+
+.input{
+    border-radius: 7px;
+    border: none;
+    background-color: rgb(239, 238, 240);
+    padding: 0.5rem;
+    width: 20rem;
+    margin-top: 0.5rem;
+}
+
+.lista{
+    background-color: rgba(200, 171, 247, 0.986);
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    border: none;
+}
+
+.listItem{
+    background-color: rgb(185, 129, 238);
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+}
+
+ul{
+    list-style-type: none;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}

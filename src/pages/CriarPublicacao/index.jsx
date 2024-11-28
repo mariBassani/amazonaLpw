@@ -8,12 +8,12 @@ export default function CriarPubli(){
     const [link, setLink] = useState("");
     const [msg, setMsg] = useState("");
     const [sentOk, setSentOk] = useState(false);
+    
 
     useEffect(() => {
         const fetchImagens = async () => {
             try {
-                const response = await fetch(
-                    "");
+                const response = await fetch( "http://localhost:8080/publicacoes");
                     const data = await response.json();
                     setImagens(data);
                 } catch (error) {
@@ -22,26 +22,31 @@ export default function CriarPubli(){
         };
 
         fetchImagens();
-    }, imagens);
+    }, []);
 
-    const addImg = async () => {
+    const addImg = async (url, descricao) => {
         try{
             const response = await fetch(
-                "",
+                "http://localhost:8080/publicacoes",
                 {
-                    metchod: "POST",
+                    method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         url: url || "Novo Post",
-                        completed: false,
+                        descricao: descricao,
                     }),
+                });
+
+                if (!response.ok){
+                    throw new Error(`Erro no servidor: ${response.statusText}`)
                 }
-            );
             const newImg = await response.json();
             setImagens((previaImagens) => [...previaImagens, newImg]);
+            setMsg("Publicado com sucesso!!")
             setLink("");
         }catch (error) {
             console.error("Erro ao adicionar publicação: ", error);
+            setMsg("Erro ao adicionar publicação.")
         }
     };
 
@@ -52,9 +57,8 @@ export default function CriarPubli(){
     } = useForm();
     
     const onSubmit = (data) => {
-        console.log(data);
-        addImg(data.url)
-        setMsg("Publicado com sucesso!")
+        console.log("Dados do formulário: ", data);
+        addImg(data.url, data.descricao)
         reset();
     };
 
@@ -81,12 +85,12 @@ export default function CriarPubli(){
         {errors.url && <p className={ style.erro }> {errors.url.message}</p>}
         
 
-        <label className={ style.label } htmlFor="desc">Descrição: </label>
-        <input className={ style.input } {...register("desc", { required:"A descrição é obrigatória!"})} type="text" id="desc" placeholder="Adicione uma breve descrição da imagem"/>
-        {errors.desc && <p className={ style.erro }> {errors.desc.message}</p>}
+        <label className={ style.label } htmlFor="descricao">Descrição: </label>
+        <input className={ style.input } {...register("descricao", { required:"A descrição é obrigatória!"})} type="text" id="descricao" placeholder="Adicione uma breve descrição da imagem"/>
+        {errors.descricao && <p className={ style.erro }> {errors.descricao.message}</p>}
         <div>
             <p>{msg}</p>
-            <button type="submit">
+            <button className={ style.btn } type="submit">
                 Publicar
             </button>
         </div>

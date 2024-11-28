@@ -29,11 +29,13 @@
 .publis {
   margin: 1vw 17vw;
   display: flex;
+  flex-direction: column;
   gap: 1vw;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
   list-style-type: none;
+  margin: 1rem;
 }
 
 .perfil {
