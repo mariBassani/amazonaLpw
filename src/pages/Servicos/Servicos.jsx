@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./servicos.module.css"; // Você pode criar um arquivo CSS com o nomeSrvc servico.module.css para estilos
+import styles from "./servicos.module.css"; // Você pode criar um arquivo CSS com o nome servicos.module.css para estilos
 
 // Função principal
 export default function Servico() {
@@ -33,10 +33,15 @@ export default function Servico() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nomeSrvc: newServico.nomeSrvc || "Novo Serviço", // NomeSrvc padrão
-          preco: newServico.preco || 0.0,
+          preco: parseFloat(newServico.preco) || 0.0, // Converte para float
           tempo: newServico.tempo || "1 hora",
         }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const newService = await response.json();
       setServico((prevServico) => [...prevServico, newService]);
       setNewServico({ nomeSrvc: "", preco: "", tempo: "" }); // Limpar os campos após adicionar
@@ -80,43 +85,49 @@ export default function Servico() {
       <h1>Gerenciamento de Serviços</h1>
 
       {/* Formulário para adicionar novo serviço */}
-      <div className= {styles.box}>
-        <input className={ styles.input }
-            type="text"
-            placeholder="Nome do Serviço"
-            value={newServico.nomeSrvc}
-            onChange={(e) => setNewServico({ ...newServico, nomeSrvc: e.target.value })}
+      <div className={styles.box}>
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="Nome do Serviço"
+          value={newServico.nomeSrvc}
+          onChange={(e) => setNewServico({ ...newServico, nomeSrvc: e.target.value })}
         />
-        <input className={ styles.input }
-            type="text"
-            placeholder="Preço"
-            value={newServico.preco}
-            onChange={(e) => setNewServico({ ...newServico, preco: e.target.value })}
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="Preço"
+          value={newServico.preco}
+          onChange={(e) => setNewServico({ ...newServico, preco: e.target.value })}
         />
-        <input className={ styles.input }
-            type="text"
-            placeholder="Tempo"
-            value={newServico.tempo}
-            onChange={(e) => setNewServico({ ...newServico, tempo: e.target.value })}
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="Tempo"
+          value={newServico.tempo}
+          onChange={(e) => setNewServico({ ...newServico, tempo: e.target.value })}
         />
-        <button className={ styles.button} onClick={addServico}>Adicionar Serviço</button>
+        <button className={styles.button} onClick={addServico}>Adicionar Serviço</button>
       </div>
 
       <h2>Lista de Serviços</h2>
       <ul>
         {servico.map((servico) => (
           <li className={styles.listItem} key={servico.id}>
-            <input className={ styles.lista }
+            <input
+              className={styles.lista}
               type="text"
               defaultValue={servico.nomeSrvc}
               onBlur={(e) => updateServico(servico.id, { nomeSrvc: e.target.value })}
             />
-            <input className={ styles.lista }
+            <input
+              className={styles.lista}
               type="text"
               defaultValue={servico.preco}
               onBlur={(e) => updateServico(servico.id, { preco: e.target.value })}
             />
-            <input className={ styles.lista }
+            <input
+              className={styles.lista}
               type="text"
               defaultValue={servico.tempo}
               onBlur={(e) => updateServico(servico.id, { tempo: e.target.value })}

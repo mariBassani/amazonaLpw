@@ -27,13 +27,11 @@ export default function Home(props){
         try {
             console.log("Excluindo a publicação com id:", id);
 
-            // Chama a API para excluir a publicação
             const response = await fetch(`http://localhost:8080/publicacoes/${id}`, {
               method: "DELETE",
             });
       
             if (response.ok) {
-              // Atualiza a galeria removendo o item com o id especificado
               setGaleria((prevGaleria) => prevGaleria.filter((imagem) => imagem.id !== id));
             } else {
               console.error("Falha ao excluir a publicação.");
